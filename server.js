@@ -14,10 +14,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Table Data
-let tables = [];
+let tables = [
+    {
+        customerName: 'Eric Andre',
+        customerPhone: '555-555-5555',
+        customerEmail: 'Eric@Andre.Show',
+        customerID: '123-test-456'
+    }
+];
 
 // Wait Data
-let waiting_list = [];
+let waiting_list = [
+    {
+        customerName: 'Hannibal Burress',
+        customerPhone: '555-555-5555',
+        customerEmail: 'Im@hannibal.yeahyeah',
+        customerID: '000-test-789'
+    }
+];
 
 // Homepage
 app.get("/", function (req, res) {
@@ -30,7 +44,6 @@ app.get("/reserve", function (req, res) {
     res.sendFile(path.join(__dirname, "reserve.html"));
 });
 // API's
-
 app.get("/api/tables", function (req, res) {
     return res.json(tables);
 });
@@ -38,6 +51,29 @@ app.get("/api/waitlist", function (req, res) {
     return res.json(waiting_list);
 });
 
+// POST
+app.post("/api/tables", function (req, res) {
+    let new_group = req.body;
+
+    new_group.routeName = new_group.name.replace(/\s+/g, "").toLowerCase();
+
+    console.log(new_group);
+
+    tables.push(new_group);
+
+    res.json(new_group);
+});
+app.post("/api/waitlist", function (req, res) {
+    let new_group = req.body;
+
+    new_group.routeName = new_group.name.replace(/\s+/g, "").toLowerCase();
+
+    console.log(new_group);
+
+    waiting_list.push(new_group);
+
+    res.json(new_group);
+});
 // Listener
 app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);

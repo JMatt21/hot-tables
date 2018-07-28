@@ -12,7 +12,7 @@
 
 <body>
     <div class="jumbotron">
-        
+
         <h1 class="display-4"> Hot Restaurant</h1>
         <p class="lead">Current Reservations and Waiting List</p>
         <hr class="my-4">
@@ -21,13 +21,12 @@
         <a class="btn btn-primary btn-lg" id="reservation" href="#" role="button">Home</a>
     </div>
     <div class="jumbotron">
-        <p class="display-4"> Current Reservations</p
-        <ul class="list-group current-reservation">
-            <li class="list-group-item active">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Morbi leo risus</li>
-            <li class="list-group-item">Porta ac consectetur ac</li>
-            <li class="list-group-item">Vestibulum at eros</li>
+        <p class="display-4"> Current Reservations</p <ul class="list-group current-reservation">
+        <li class="list-group-item active">Cras justo odio</li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Morbi leo risus</li>
+        <li class="list-group-item">Porta ac consectetur ac</li>
+        <li class="list-group-item">Vestibulum at eros</li>
         </ul>
     </div>
     <div class="jumbotron">
@@ -41,5 +40,29 @@
         </ul>
     </div>
 </body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        let searchedCustomer = $("#character-search").val().trim();
+
+        // Using a RegEx Pattern to remove spaces from searchedCharacter
+        // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+        searchedCustomer = searchedCustomer.replace(/\s+/g, "").toLowerCase();
+
+        $.get("/api/tables/" + searchedCustomer, function (data) {
+            console.log(data);
+            if (data) {
+                $("#stats").show();
+                $("#name").text(data.name);
+                $("#role").text(data.role);
+                $("#age").text(data.age);
+                $("#force-points").text(data.forcePoints);
+            }
+            else {
+                $("#name").text("The force is not strong with this one. Your character was not found.");
+                $("#stats").hide();
+            }
+        });
+    });
+</script>
 
 </html>
