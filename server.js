@@ -13,8 +13,25 @@ var PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Table Data
+let tables = [];
+
+// Wait Data
+let waiting_list = [];
+
 // Homepage
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "view.html"));
   });
-  
+  app.get("/table", function(req, res) {
+    res.sendFile(path.join(__dirname, "table.html"));
+  });
+  app.get("/reserve", function(req, res) {
+    res.sendFile(path.join(__dirname, "reserve.html"));
+  });
+
+
+// Listener
+app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
