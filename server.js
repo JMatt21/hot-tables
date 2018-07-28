@@ -39,7 +39,7 @@ let waiting_list = [
     }
 ];
 
-// Homepage
+// Router
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, "view.html"));
 });
@@ -61,16 +61,26 @@ app.get("/api/waitlist", function (req, res) {
 app.post("/api/tables", function (req, res) {
     let new_group = req.body;
 
-    // new_group.routeName = new_group.name.replace(/\s+/g, "").toLowerCase();
-
     console.log(new_group);
     if (tables.length >= 5) {
         waiting_list.push(new_group);
         res.json(false);
-        
+
     } else {
         tables.push(new_group);
         res.json(true);
+    }
+
+});
+
+// pseduo DELETE
+app.post("/api/tables/delete", function (req, res) {
+    console.log(req.body.text);
+    let thingToDelete = tables.find((e) => { return e.customerID === req.body.text })
+    tables.splice(tables.indexOf(thingToDelete), 1);
+
+    while (tables.length <= 5){
+        tables.push(waiting_list.splice(0,1)[0]);
     }
     
 });
@@ -79,3 +89,6 @@ app.post("/api/tables", function (req, res) {
 app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
 });
+
+
+// tables.push(waiting_list.splice(0,1));

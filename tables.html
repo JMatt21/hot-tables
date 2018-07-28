@@ -65,7 +65,8 @@
                     let custPhone = $("<p class='cust-phone'>").html(data[i].customerPhone);
                     let custEmail = $("<p class='cust-email'>").html(data[i].customerEmail);
                     let custId = $("<p class='cust-id'>").html(data[i].customerID);
-                    customerRow.append(custName, custPhone, custEmail, custId);
+                    let deleteButton = $("<button class='delete'>").attr('customerID', data[i].customerID).text('X');
+                    customerRow.append(custName, custPhone, custEmail, custId, deleteButton);
                     $('.table-reserv').append(customerRow);
                 }
                 else {
@@ -84,14 +85,23 @@
                     let custPhone = $("<p class='cust-phone'>").html(data[i].customerPhone);
                     let custEmail = $("<p class='cust-email'>").html(data[i].customerEmail);
                     let custId = $("<p class='cust-id'>").html(data[i].customerID);
-                    customerRow.append(custName, custPhone, custEmail, custId);
+                    let deleteButton = $("<button class='delete'>").attr('customerID', data[i].customerID).text('X');
+
+                    customerRow.append(custName, custPhone, custEmail, custId, deleteButton);
                     $('.table-waitlist').append(customerRow);
                 }
                 else {
                     console.log('something didnt happen');
                 }
             }
+        });
+        $(".table-reserv").on("click", ".delete", function () {
+            const temp = {
+                text: $(this).attr('customerID')
+            }
+            $.post("/api/tables/delete", temp).then(function (data) {
 
+            });
         });
     });
 
