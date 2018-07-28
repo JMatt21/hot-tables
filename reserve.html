@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css' integrity='sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB'
+        crossorigin='anonymous'>
+    <script src='https://code.jquery.com/jquery-3.3.1.js' integrity='sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=' crossorigin='anonymous'></script>
+</head>
+
+<body>
+    <div class="jumbotron text-center">
+        <h1 class="display-4 text-center">
+            <i class="fas fa-fire"></i> Hot Restaurant</h1>
+        <p class="lead text-center">Make your reservation</p>
+        <hr class="my-4">
+
+        <a class="btn btn-primary btn-lg" id="tables" href="tables.html" role="button">View Tables</a>
+        <a class="btn btn-primary btn-lg" id="reservation" href="view.html" role="button">
+            <i class="fas fa-home"></i>
+        </a>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Table Reservation</h4>
+        </div>
+        <div class="panel-body">
+
+            <form role="form">
+
+                <div class="form-group">
+                    <label for="">Name</label>
+                    <input type="text" class="form-control" id="reserve_name">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Phone Number</label>
+                    <input type="text" class="form-control" id="reserve_phone">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Email</label>
+                    <input type="text" class="form-control" id="reserve_email">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Unique ID</label>
+                    <input type="text" class="form-control" id="reserve_uniqueID">
+                </div>
+
+                <button type="submit" class="btn btn-primary submit">Submit</button>
+            </form>
+
+        </div>
+    </div>
+
+    </div>
+    </div>
+    <br>
+
+    <a href="/api/tables" class="card-link">API Table Link</a>
+    <a href="/api/waitlist" class="card-link">API Wait List</a>
+</body>
+
+</html>
+<script>
+    $(".submit").on("click", function (data) {
+        data.preventDefault();
+        const new_table = {
+            customerName: $('#reserve_name').val().trim(),
+            customerPhone: $('#reserve_phone').val().trim(),
+            customerEmail: $('#reserve_email').val().trim(),
+            customerID: $('#reserve_uniqueID').val().trim()
+        };
+
+        $(function() {
+    $('form').submit(function() {
+        $('#result').text(JSON.stringify($('form').serializeObject()));
+        return false;
+    });
+
+    });
+        $.post("/api/tables", new_table).then(function (data) {
+            console.log("add.html", data);
+        });
+    });
+
+</script>

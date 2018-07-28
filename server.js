@@ -20,6 +20,12 @@ let tables = [
         customerPhone: '555-555-5555',
         customerEmail: 'Eric@Andre.Show',
         customerID: '123-test-456'
+    },
+    {
+        customerName: 'Eric Andre',
+        customerPhone: '555-555-5555',
+        customerEmail: 'Eric@Andre.Show',
+        customerID: '123-test-456'
     }
 ];
 
@@ -38,7 +44,7 @@ app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, "view.html"));
 });
 app.get("/table", function (req, res) {
-    res.sendFile(path.join(__dirname, "table.html"));
+    res.sendFile(path.join(__dirname, "tables.html"));
 });
 app.get("/reserve", function (req, res) {
     res.sendFile(path.join(__dirname, "reserve.html"));
@@ -55,7 +61,7 @@ app.get("/api/waitlist", function (req, res) {
 app.post("/api/tables", function (req, res) {
     let new_group = req.body;
 
-    new_group.routeName = new_group.name.replace(/\s+/g, "").toLowerCase();
+    // new_group.routeName = new_group.name.replace(/\s+/g, "").toLowerCase();
 
     console.log(new_group);
 
@@ -66,7 +72,7 @@ app.post("/api/tables", function (req, res) {
 app.post("/api/waitlist", function (req, res) {
     let new_group = req.body;
 
-    new_group.routeName = new_group.name.replace(/\s+/g, "").toLowerCase();
+    // new_group.routeName = new_group.name.replace(/\s+/g, "").toLowerCase();
 
     console.log(new_group);
 
