@@ -20,8 +20,8 @@
         <p class="lead text-center">Make your reservation</p>
         <hr class="my-4">
 
-        <a class="btn btn-primary btn-lg" id="tables" href="tables.html" role="button">View Tables</a>
-        <a class="btn btn-primary btn-lg" id="reservation" href="view.html" role="button">
+        <a class="btn btn-primary btn-lg" id="tables" href="./table" role="button">View Tables</a>
+        <a class="btn btn-primary btn-lg" id="reservation" href="./" role="button">
             <i class="fas fa-home"></i>
         </a>
     </div>
@@ -79,15 +79,21 @@
             customerID: $('#reserve_uniqueID').val().trim()
         };
 
-        $(function() {
-    $('form').submit(function() {
-        $('#result').text(JSON.stringify($('form').serializeObject()));
-        return false;
-    });
+        $(function () {
+            $('form').submit(function () {
+                $('#result').text(JSON.stringify($('form').serializeObject()));
+                return false;
+            });
 
-    });
+        });
         $.post("/api/tables", new_table).then(function (data) {
-            console.log("add.html", data);
+            // console.log("add.html", data);
+            if (data){
+                alert('you are booked c:')
+            } else {
+                alert('Sorry, you are on the wait list');
+            }
+
         });
     });
 

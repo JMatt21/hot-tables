@@ -22,10 +22,10 @@ let tables = [
         customerID: '123-test-456'
     },
     {
-        customerName: 'Eric Andre',
+        customerName: 'Jacob Nelson',
         customerPhone: '555-555-5555',
-        customerEmail: 'Eric@Andre.Show',
-        customerID: '123-test-456'
+        customerEmail: 'jacob@nelson.Show',
+        customerID: '364-test-745'
     }
 ];
 
@@ -64,22 +64,17 @@ app.post("/api/tables", function (req, res) {
     // new_group.routeName = new_group.name.replace(/\s+/g, "").toLowerCase();
 
     console.log(new_group);
-
-    tables.push(new_group);
-
-    res.json(new_group);
+    if (tables.length >= 5) {
+        waiting_list.push(new_group);
+        res.json(false);
+        
+    } else {
+        tables.push(new_group);
+        res.json(true);
+    }
+    
 });
-app.post("/api/waitlist", function (req, res) {
-    let new_group = req.body;
 
-    // new_group.routeName = new_group.name.replace(/\s+/g, "").toLowerCase();
-
-    console.log(new_group);
-
-    waiting_list.push(new_group);
-
-    res.json(new_group);
-});
 // Listener
 app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
